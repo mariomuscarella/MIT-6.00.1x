@@ -1,13 +1,19 @@
-def decryptStory():
+def buildCoder(shift):
     """
-    Using the methods you created in this problem set,
-    decrypt the story given by the function getStoryString().
-    Once you decrypt the message, be sure to include as a comment
-    your decryption of the story.
+    Returns a dict that can apply a Caesar cipher to a letter.
+    The cipher is defined by the shift value. Ignores non-letter characters
+    like punctuation, numbers, and spaces.
 
-    returns: string - story in plain text
+    shift: 0 <= int < 26
+    returns: dict
     """
-    ciphertext = getStoryString()
-    wordList = loadWords()
-    shift = findBestShift(wordList, ciphertext)
-    return applyShift(ciphertext, shift)
+    d = {}
+
+    for i in range(len(string.ascii_lowercase)):
+        s = (i + shift)  % 26
+        c = string.ascii_lowercase[i]
+        sc = string.ascii_lowercase[s]
+        d[c] = sc
+        d[c.upper()] = sc.upper()
+ 
+    return d
